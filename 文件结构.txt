@@ -1,15 +1,12 @@
 文件结构（只标注更改过及需要独立运行或格外生成的文件）
 SparrowRecSys-master/
-├── .idea/   --IntelliJ IDEA 项目配置文件
 ├── docs/   --项目文档与说明材料
 ├── python_embedding/   --离线模型训练与数据处理
-│   ├── venv/
 │   ├── analyze_ml25m.py   --MovieLens 25M 数据分析脚本
 │   ├── convert_ml25m_to_sparrow.py   --ml-25m 数据集格式转换
 │   ├── generate_ncf_scores.py   --生成 NCF 预测评分文件
 │   ├── large_scale_embedding_trainer.py   --大规模 embedding 模型训练
 │   ├── ncf_embedding_trainer.py   --NCF 深度学习模型训练
-│   ├── ncf_model_best.h5   --训练完成的 NCF 模型文件
 │   ├── run_training.bat   --Windows 下模型训练批处理脚本
 │   └── simple_embedding_trainer.py   --基础 embedding 训练脚本
 ├── RecPySpark/   -基于 Spark 的推荐系统实验模块
@@ -55,15 +52,8 @@ SparrowRecSys-master/
 │       │   │  ├── neuralcf/
 │       │   │  ├── .DS_Store
 │       │   │  ├── item2vecEmb.csv   --Item2Vec 电影向量（小规模）
-│       │   │  ├── item2vecEmb_large.csv   --Item2Vec 电影向量（ml-25m）
 │       │   │  ├── item_mapping.npy   --电影 ID 映射表
-│       │   │  ├── ncf_itemEmb_large.csv   --NCF 电影向量（ml-25m）
-│       │   │  ├── ncf_model.h5   --训练好的 NCF 模型
-│       │   │  ├── ncf_model_config.npy   --训练好的 NCF 模型
-│       │   │  ├── ncf_predict_scores.csv   --NCF 离线预测评分结果
-│       │   │  ├── ncf_userEmb_large.csv   --NCF 用户向量（ml-25m）
 │       │   │  ├── userEmb.csv   --用户向量（小规模）
-│       │   │  ├── userEmb_large.csv   --用户向量（ml-25m）
 │       │   │  ├── user_mapping.npy   --电影 ID 映射表
 │       │   │  └── training_report.txt   --模型训练过程日志
 │       │   ├── posters/
