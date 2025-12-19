@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <base href="."/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>分类 | Sparrow 推荐系统</title>
+    <title>首页 | Sparrow 推荐系统</title>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="theme-color" content="#ffffff"/>
@@ -36,13 +36,13 @@
             <div class="base-header-search-container">
                 <form class="form-inline ng-pristine ng-valid ng-touched" novalidate="" role="form">
                     <div class="input-group input-group-sm base-header-search-box">
-                        <span class="twitter-typeahead" style="position: relative; display: inline-block;">
-                            <input class="form-control input-sm no-glow tt-input ng-pristine ng-valid ng-touched"
-                                   id="omnisearch-typeahead" name="currentVal" type="text" spellcheck="false" dir="auto"
-                                   aria-owns="omnisearch-typeahead_listbox" role="combobox"
-                                   aria-readonly="true" aria-autocomplete="list"
-                                   style="position: relative; vertical-align: top; background-color: transparent;"
-                                   placeholder="请输入用户ID或电影名"/>
+                       <span class="twitter-typeahead" style="position: relative; display: inline-block;">
+                           <input class="form-control input-sm no-glow tt-input ng-pristine ng-valid ng-touched"
+                                  id="omnisearch-typeahead" name="currentVal" type="text" spellcheck="false" dir="auto"
+                                  aria-owns="omnisearch-typeahead_listbox" role="combobox"
+                                  aria-readonly="true" aria-autocomplete="list"
+                                  placeholder="请输入电影名"
+                                  style="position: relative; vertical-align: top; background-color: transparent;"/>
                         </span>
                         <span class="input-group-btn">
                             <button class="btn btn-default btn-sm no-glow">
@@ -57,6 +57,8 @@
     <div class="base-compact-header-spacer"></div>
     <div class="ml4-container" style="min-height: 920px;">
         <div id="main-container">
+            <div class="movie-alt" id="movie-details-container">
+            </div>
             <div class="frontpage" id="recPage">
                 <div class="frontpage-section-top">
                     <div class="row">
@@ -64,8 +66,8 @@
                             <h1>提供反馈</h1>
                             <div class="jumbotron ml4-jumbotron" style="padding-top: 0;">
                                 <p>如需反馈，请在我们的 GitHub 项目主页创建 issue：
-                                    <a href="https://github.com/wzhe06/SparrowRecSys/issues"
-                                       target="_blank">Sparrow 推荐系统 Github</a>.</p>
+                                    <a href="https://github.com/wzhe06/SparrowRecSys/issues" target="_blank">Sparrow 推荐系统 Github</a>
+                                </p>
                                 <p>
                                     <button class="btn btn-primary btn-lg"
                                             onclick="location.href='https://github.com/wzhe06/SparrowRecSys/issues';">
@@ -94,17 +96,15 @@
                     <ul class="list-unstyled">
                         <li class="header section-header">王喆的微信</li>
                         <li>
-                            <img alt="微信二维码" src="./images/wzscan.jpg" width="110"/>
+                            <img alt="GroupLens logo" src="./images/wzscan.jpg" width="110"/>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <div class="gl-logo section-header">
-                        <img alt="GroupLens logo" height="25"
-                             src="./resources/grouplens-logo-110.png" width="110"/>
+                        <img alt="GroupLens logo" height="25" src="./resources/grouplens-logo-110.png" width="110"/>
                     </div>
-                    <p>Sparrow 推荐系统是一个开源推荐系统，由 <a
-                            href="https://github.com/wzhe06">王喆</a> 创立和维护。</p>
+                    <p>Sparrow 推荐系统是一个开源推荐系统，由 <a href="https://github.com/wzhe06">王喆</a> 维护。</p>
                     <p>版本 1.0.0</p>
                     <p>版权 &copy; 2020</p>
                 </div>
@@ -112,9 +112,9 @@
         </div>
     </footer>
 </div>
-</body>
 
 <script type="text/javascript">
+
     function getQueryString(name, windowLocation) {
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
         var r = windowLocation.search.substr(1).match(reg);
@@ -125,14 +125,37 @@
     };
 
     var windowLocation = window.location;
-    var type = getQueryString("type",windowLocation);
-    var value = getQueryString("value",windowLocation);
+    var movieId = getQueryString("movieId",windowLocation);
 
-    var baseUrl = windowLocation.protocol + "//" + windowLocation.host + "/";
+    var baseUrl = windowLocation.protocol + "//" + windowLocation.host + "/"
 
-    if(type == "genre"){
-        addGenreRow('#recPage', value, value.toLowerCase() + '-collection', 100, baseUrl);
+    // 调用函数，渲染电影详情和相关电影
+    addMovieDetails("movie-details-container", movieId, baseUrl);
+
+    // 将 "Related Movies" 改成中文
+    function addRelatedMoviesLocalized(pageId, containerId, movieId, baseUrl){
+        var rowDiv = '<div class="frontpage-section-top"> \
+                        <div class="explore-header frontpage-section-header">\
+                         相关电影 \
+                        </div>\
+                        <div class="movie-row">\
+                         <div class="movie-row-bounds">\
+                          <div class="movie-row-scrollable" id="' + containerId +'" style="margin-left: 0px;">\
+                          </div>\
+                         </div>\
+                         <div class="clearfix"></div>\
+                        </div>\
+                       </div>'
+        $(pageId).prepend(rowDiv);
+
+        $.getJSON(baseUrl + "getsimilarmovie?movieId="+movieId+"&size=16&model=emb", function(result){
+            $.each(result, function(i, movie){
+              appendMovie2Row(containerId, movie.title, movie.movieId, movie.releaseYear, movie.averageRating.toPrecision(2), movie.ratingNumber, movie.genres,baseUrl);
+            });
+        });
     }
+
+    addRelatedMoviesLocalized("#recPage", "relatedMovies", movieId, baseUrl);
 
 </script>
 </html>

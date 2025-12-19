@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="."/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Home | Sparrow RecSys</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <link type="text/plain" rel="author"/>
+    <link href="./css/style.css" rel="stylesheet"/>
+    <!-- 新增：引入Font Awesome（修复搜索图标） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./resources/favicon.ico">
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="./js/recsys.js?v=1.20"></script>
+    <script src="./js/poster-links.js"></script>
+</head>
+<body id="root">
+<div>
+    <header class="base-compact-header">
+        <div class="ml4-container base-header-primary-container">
+            <div class="base-header-logo-container">
+                <span class="base-header-logo-main">
+                    <a href="."><img alt="Sparrow RecSys Logo" height="30px" src="./images/sparrowrecsyslogo.png"/></a>
+                </span>
+            </div>
+            <div class="base-header-search-container">
+                <form class="form-inline ng-pristine ng-valid ng-touched" novalidate="" role="form">
+                    <div class="input-group input-group-sm base-header-search-box">
+               <span class="twitter-typeahead" style="position: relative; display: inline-block;">
+                   <input class="form-control input-sm no-glow tt-input ng-pristine ng-valid ng-touched"
+                          id="omnisearch-typeahead" name="currentVal" type="text" spellcheck="false" dir="auto"
+                          aria-owns="omnisearch-typeahead_listbox" role="combobox"
+                          aria-readonly="true" aria-autocomplete="list"
+                          style="position: relative; vertical-align: top; background-color: transparent;"/>
+                </span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-sm no-glow">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="base-compact-header-spacer"></div>
+    <div class="ml4-container" style="min-height: 920px;">
+        <div id="main-container">
+            <!-- 模型选择区域 -->
+            <div class="model-selection-section" style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 style="margin-bottom: 15px;">🎯 推荐模型选择</h4>
+                        <div class="form-group">
+                            <label for="modelSelect">选择embedding模型版本:</label>
+                            <select id="modelSelect" class="form-control" style="width: 300px; display: inline-block; margin-left: 10px;">
+                                <option value="">加载中...</option>
+                            </select>
+                            <button id="switchModelBtn" class="btn btn-primary" style="margin-left: 10px;">切换模型</button>
+                            <span id="modelStatus" style="margin-left: 10px; font-weight: bold;"></span>
+                        </div>
+                        <!-- NCF版本文案说明（保留） -->
+                        <p class="text-muted" style="margin-top: 10px;">
+                            <strong>标准版本:</strong> 使用原始数据集(116万条评分)训练的模型<br>
+                            <strong>大数据集版本:</strong> 使用MovieLens 25M数据集(2500万条评分)训练的高质量模型<br>
+                            <strong>NCF深度学习版本:</strong> 基于神经协同过滤(NCF)的深度学习模型，融合线性+非线性特征
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="frontpage" id="recPage">
+                <div class="frontpage-section-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>提交您的意见</h1>
+                            <div class="jumbotron ml4-jumbotron" style="padding-top: 0;">
+                                <p> 为了收集您的反馈，请在我们项目的GitHub首页创建 issue
+                                    <a href="https://github.com/wzhe06/SparrowRecSys/issues"
+                                       target="_blank">Sparrow RecSys Github</a>.</p>
+                                <p>
+                                    <button class="btn btn-primary btn-lg"
+                                            onclick="location.href='https://github.com/wzhe06/SparrowRecSys/issues';">
+                                        提交您的意见
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="base-compact-footer">
+        <div class="ml4-container">
+            <div class="row ml4-footer-row">
+                <div class="col-md-2">
+                    <ul class="list-unstyled">
+                        <li class="header section-header">learn more</li>
+                        <li><a href="https://github.com/wzhe06/SparrowRecSys">about
+                            Sparrow RecSys</a></li>
+                        <li><a
+                                href="https://wzhe.me">about Zhe Wang</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <ul class="list-unstyled">
+                        <li class="header section-header">Zhe Wang's wechat</li>
+                        <li>
+                            <img alt="GroupLens logo" src="./images/wzscan.jpg" width="110"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="gl-logo section-header">
+                        <img alt="GroupLens logo" height="25"
+                             src="./resources/grouplens-logo-110.png" width="110"/>
+                    </div>
+                    <p> Sparrow RecSys is an open source recommender system, which is founded and maintained by <a href="https://github.com/wzhe06">Wang Zhe</a>, a senior machine learning engineer. </p>
+                    <p> version 1.0.0
+                        <!----></p>
+                    <p>copyright &copy; 2020</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+
+<script type="text/javascript">
+    window.onload = function() {
+        console.log("Window loaded, starting...");
+
+        var getUrl = window.location;
+        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/"
+
+        console.log("开始加载推荐内容...");
+        console.log("baseUrl:", baseUrl);
+
+        // 1. 加载模型列表（优化NCF适配）
+        function loadModelList() {
+            console.log("开始加载模型列表...");
+            $("#modelStatus").text("正在加载模型列表...").css("color", "blue");
+            $.ajax({
+                url: baseUrl + "getmodel?action=list",
+                type: "GET",
+                dataType: "json",
+                timeout: 5000, // 新增：5秒超时（加载模型列表，和NCF切换无关，保留）
+                success: function(res) {
+                    console.log("模型列表接口返回：", res);
+                    if (res.success) {
+                        // 清空下拉框
+                        $("#modelSelect").empty();
+                        // 遍历模型列表（兼容中英文displayName）
+                        $.each(res.models, function(i, model) {
+                            var displayName = model.displayName;
+                            // 统一名称显示（后端英文转中文）
+                            if (model.version === "STANDARD") {
+                                displayName = "标准版本";
+                            } else if (model.version === "LARGE") {
+                                displayName = "大数据集版本";
+                            } else if (model.version === "NCF") {
+                                displayName = "NCF深度学习版本"; // 强制映射NCF名称
+                            }
+                            // 新增：给NCF选项加特殊标识
+                            var option = $("<option>").val(model.version).text(displayName);
+                            if (model.version === "NCF") {
+                                option.attr("title", "基于神经协同过滤的深度学习模型"); // 鼠标悬浮提示
+                            }
+                            $("#modelSelect").append(option);
+                            // 默认选中当前模型
+                            if (model.isCurrent) {
+                                $("#modelSelect").val(model.version);
+                                $("#modelStatus").text("当前模型：" + displayName).css("color", "green");
+                            }
+                        });
+                    } else {
+                        $("#modelSelect").html('<option value="">加载失败</option>');
+                        $("#modelStatus").text("加载失败：" + res.message).css("color", "red");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("模型列表加载失败：", error);
+                    $("#modelSelect").html('<option value="">加载失败</option>');
+                    if (status === "timeout") {
+                        $("#modelStatus").text("加载失败：请求超时，请刷新页面").css("color", "red");
+                    } else {
+                        $("#modelStatus").text("加载失败：无法连接服务器").css("color", "red");
+                    }
+                }
+            });
+        }
+
+        // 2. 切换模型（优化NCF切换体验，移除超时限制）
+        function switchModel() {
+            var selectedVersion = $("#modelSelect").val();
+            if (!selectedVersion) {
+                $("#modelStatus").text("请选择模型版本！").css("color", "orange");
+                return;
+            }
+            // 禁用按钮防止重复点击
+            $("#switchModelBtn").prop("disabled", true).text("切换中...");
+            $("#modelStatus").text("正在切换模型，请稍候...").css("color", "blue");
+
+            $.ajax({
+                url: baseUrl + "getmodel",
+                type: "POST",
+                data: {
+                    action: "switch",
+                    version: selectedVersion
+                },
+                dataType: "json",
+                // ========== 核心修改：删除timeout: 10000这一行，不计算时间 ==========
+                success: function(res) {
+                    if (res.success) {
+                        // 显示成功提示
+                        var modelName = selectedVersion === "STANDARD" ? "标准版本" : 
+                                        selectedVersion === "LARGE" ? "大数据集版本" : "NCF深度学习版本";
+                        $("#modelStatus").text("✅ 成功切换到：" + modelName).css("color", "green");
+                        // 刷新推荐内容（不刷新整个页面，仅重新加载推荐行）
+                        setTimeout(function() {
+                            reloadRecommendations(baseUrl); // 新增：局部刷新推荐
+                            $("#switchModelBtn").prop("disabled", false).text("切换模型");
+                        }, 1000);
+                    } else {
+                        $("#modelStatus").text("❌ 切换失败：" + res.message).css("color", "red");
+                        $("#switchModelBtn").prop("disabled", false).text("切换模型");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("模型切换失败：", error);
+                    // ========== 微调：移除超时提示，仅保留网络错误提示 ==========
+                    $("#modelStatus").text("❌ 切换失败：网络错误").css("color", "red");
+                    $("#switchModelBtn").prop("disabled", false).text("切换模型");
+                }
+            });
+        }
+
+        // 3. 局部刷新推荐内容（避免整页刷新，优化体验）
+        function reloadRecommendations(baseUrl) {
+            console.log("重新加载推荐内容...");
+            // 清空原有推荐行
+            $("#recPage .frontpage-section-top .row").not(":first").remove();
+            // 重新加载各类型推荐
+            addGenreRow('#recPage', 'Action', 'action-collection', 8, baseUrl);
+            addGenreRow('#recPage', 'Romance', 'romance-collection', 8, baseUrl);
+            addGenreRow('#recPage', 'Thriller', 'thriller-collection', 8, baseUrl);
+            addGenreRow('#recPage', 'Comedy', 'comedy-collection', 8, baseUrl);
+            addGenreRow('#recPage', 'Drama', 'drama-collection', 8, baseUrl);
+            addGenreRow('#recPage', 'Adventure', 'adventure-collection', 8, baseUrl);
+        }
+
+        // 4. 绑定事件
+        $("#switchModelBtn").click(function() {
+            switchModel();
+        });
+        // 新增：按回车也能切换模型
+        $("#modelSelect").keypress(function(e) {
+            if (e.which === 13) {
+                switchModel();
+            }
+        });
+
+        // 初始化
+        loadModelList();
+        // 加载初始推荐
+        //addGenreRow('#recPage', 'Action', 'action-collection', 8, baseUrl);
+        //addGenreRow('#recPage', 'Romance', 'romance-collection', 8, baseUrl);
+        //addGenreRow('#recPage', 'Thriller', 'thriller-collection', 8, baseUrl);
+        //addGenreRow('#recPage', 'Comedy', 'comedy-collection', 8, baseUrl);
+        //addGenreRow('#recPage', 'Drama', 'drama-collection', 8, baseUrl);
+        //addGenreRow('#recPage', 'Adventure', 'adventure-collection', 8, baseUrl);
+    };
+</script>
+</html>
