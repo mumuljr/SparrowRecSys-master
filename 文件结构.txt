@@ -1,0 +1,96 @@
+文件结构（只标注更改过及需要独立运行或格外生成的文件）
+SparrowRecSys-master/
+├── .idea/   --IntelliJ IDEA 项目配置文件
+├── docs/   --项目文档与说明材料
+├── python_embedding/   --离线模型训练与数据处理
+│   ├── venv/
+│   ├── analyze_ml25m.py   --MovieLens 25M 数据分析脚本
+│   ├── convert_ml25m_to_sparrow.py   --ml-25m 数据集格式转换
+│   ├── generate_ncf_scores.py   --生成 NCF 预测评分文件
+│   ├── large_scale_embedding_trainer.py   --大规模 embedding 模型训练
+│   ├── ncf_embedding_trainer.py   --NCF 深度学习模型训练
+│   ├── ncf_model_best.h5   --训练完成的 NCF 模型文件
+│   ├── run_training.bat   --Windows 下模型训练批处理脚本
+│   └── simple_embedding_trainer.py   --基础 embedding 训练脚本
+├── RecPySpark/   -基于 Spark 的推荐系统实验模块
+├── src/
+│   └── main/
+│       ├── java/com/sparrowrecsys/
+│       │   ├── nearline/
+│       │   ├── offline/
+│       │   └── online/
+│       │        ├── config/
+│       │        │   └── ModelConfig.java   --模型版本与切换配置
+│       │        ├── datamanager/
+│       │        │   ├── DataManager.java   --系统数据统一管理入口
+│       │        │   ├── Movie.java   --电影实体类
+│       │        │   ├── Rating.java   --用户评分实体
+│       │        │   ├── RatingListSerializer.java   --评分数据序列化工具
+│       │        │   ├── RedisClient.java   --Redis 缓存访问工具
+│       │        │   └── User.java   --用户实体类
+│       │        ├── model/
+│       │        │   └── Embedding.java   --向量表示与相似度计算
+│       │        ├── recprocess/
+│       │        │   ├── RecForYouProcess.java   --个性化推荐逻辑
+│       │        │   └── SimilarMovieProcess.java   --相似电影推荐逻辑
+│       │        ├── service/ 
+│       │        │   ├── ModelService.java   --模型管理与切换接口
+│       │        │   ├── MovieService.java   --“为你推荐”接口
+│       │        │   ├── RecForYouService.java   --“为你推荐”接口
+│       │        │   ├── RecommendationService.java   --推荐列表接口
+│       │        │   ├── SimilarMovieService.java   --相似电影接口
+│       │        │   └── UserService.java   --用户信息接口
+│       │        ├── service/
+│       │        └── RecSysServer.java   --推荐系统 Web 服务启动入口
+│       └── resources/webroot/
+│       │   ├── css/
+│       │   ├── fonts/
+│       │   ├── images/
+│       │   ├── js/
+│       │   │  ├── jquery-3.2.1.min.js   --前端基础 JS 框架
+│       │   │  ├── poster-links.js   --动态海报生成
+│       │   │  └── recsys.js   --推荐系统前端逻辑
+│       │   ├── modeldata/
+│       │   │  ├── MLPRec/
+│       │   │  ├── neuralcf/
+│       │   │  ├── .DS_Store
+│       │   │  ├── item2vecEmb.csv   --Item2Vec 电影向量（小规模）
+│       │   │  ├── item2vecEmb_large.csv   --Item2Vec 电影向量（ml-25m）
+│       │   │  ├── item_mapping.npy   --电影 ID 映射表
+│       │   │  ├── ncf_itemEmb_large.csv   --NCF 电影向量（ml-25m）
+│       │   │  ├── ncf_model.h5   --训练好的 NCF 模型
+│       │   │  ├── ncf_model_config.npy   --训练好的 NCF 模型
+│       │   │  ├── ncf_predict_scores.csv   --NCF 离线预测评分结果
+│       │   │  ├── ncf_userEmb_large.csv   --NCF 用户向量（ml-25m）
+│       │   │  ├── userEmb.csv   --用户向量（小规模）
+│       │   │  ├── userEmb_large.csv   --用户向量（ml-25m）
+│       │   │  ├── user_mapping.npy   --电影 ID 映射表
+│       │   │  └── training_report.txt   --模型训练过程日志
+│       │   ├── posters/
+│       │   ├── resources/
+│       │   ├── sampledata/
+│       │   │  ├── conversion_report.txt
+│       │   │  ├── embedding.txt
+│       │   │  ├── links.csv   --MovieLens 外部链接映射
+│       │   │  ├── links_large.csv   --MovieLens 外部链接映射
+│       │   │  ├── modelSamples.csv   --模型示例输入数据
+│       │   │  ├── movies.csv   --电影元数据（小规模）
+│       │   │  ├── movies_large.csv   --电影元数据（ml-25m）
+│       │   │  ├── ratings.csv   --用户评分数据（小规模）
+│       │   │  ├── ratings_large.csv   --用户评分数据（ml-25m）
+│       │   │  ├── testSamples.csv   --模型测试样本
+│       │   │  └── trainingSamples.csv   --模型训练样本
+│       │   ├── collection.html   --电影集合展示页
+│       │   ├── index.html   --系统首页
+│       │   ├── movie.html   --单电影详情与相似推荐页
+│       │   └── user.html   --用户画像与个性化推荐页
+├── target/   --Maven 编译输出目录
+├── TFRecModel/   --TensorFlow 推荐模型相关实验文件(未使用)
+├── .gitignore
+├── create_title_poster_generator.py   --基于电影标题生成海报脚本
+├── dependency-reduced-pom.xml   --精简依赖后的 Maven 配置
+├── LICENSE   --项目开源许可证
+├── pom.xml   --Maven 项目依赖与构建配置
+├── _config.yml
+├── README.md   --运行说明
+└── 文件结构.txt   --文件结构
